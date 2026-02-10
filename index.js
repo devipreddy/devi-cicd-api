@@ -8,12 +8,20 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // API endpoint
 app.get("/api/info", (req, res) => {
+
+  const istTime = new Date().toLocaleString("en-IN", {
+    timeZone: "Asia/Kolkata",
+    dateStyle: "medium",
+    timeStyle: "medium"
+  });
+
   res.json({
     environment: "AWS Elastic Beanstalk",
-    deployedAt: new Date().toLocaleString(),
+    deployedAt: istTime,
     status: "LIVE"
   });
 });
+
 
 // Fallback for all other routes (FIXED)
 app.use((req, res) => {
