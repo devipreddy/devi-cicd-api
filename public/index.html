@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>CI/CD Deployment Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 60px auto;
+      background: rgba(255, 255, 255, 0.12);
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      text-align: center;
+      opacity: 0.85;
+      margin-bottom: 40px;
+    }
+
+    .card {
+      background: rgba(0, 0, 0, 0.25);
+      padding: 25px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+
+    .label {
+      opacity: 0.7;
+      font-size: 14px;
+    }
+
+    .value {
+      font-size: 22px;
+      font-weight: bold;
+      margin-top: 5px;
+    }
+
+    .status {
+      color: #4ade80;
+    }
+
+    footer {
+      text-align: center;
+      opacity: 0.6;
+      margin-top: 30px;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>🚀 CI/CD Deployment Dashboard</h1>
+    <div class="subtitle">
+      AWS CodePipeline → CodeBuild → Elastic Beanstalk
+    </div>
+
+    <div class="card">
+      <div class="label">API STATUS</div>
+      <div class="value status">LIVE & RUNNING</div>
+    </div>
+
+    <div class="card">
+      <div class="label">ENVIRONMENT</div>
+      <div class="value" id="env">Loading...</div>
+    </div>
+
+    <div class="card">
+      <div class="label">DEPLOYMENT TIME</div>
+      <div class="value" id="time">Loading...</div>
+    </div>
+
+    <div class="card">
+      <div class="label">CI/CD MODE</div>
+      <div class="value">Automatic (GitHub → AWS)</div>
+    </div>
+
+    <footer>
+      Elastic Beanstalk • Node.js • Express • AWS CI/CD
+    </footer>
+  </div>
+
+  <script>
+    fetch("/api/info")
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("env").innerText = data.environment;
+        document.getElementById("time").innerText = data.deployedAt;
+      });
+  </script>
+
+</body>
+</html>
